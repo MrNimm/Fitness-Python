@@ -1,17 +1,21 @@
-# Fitness App - OOP version with detailed comments
+
+# Fintness app v.03 Working towards a gui w/ menu
+
+
 
 import csv
 from datetime import date
 from pathlib import Path
+import tkinter as tk
+from tkinter import messagebox
 
 
-# FILE SETUP (unchanged from version 0.1, except cleaned slightly)
+# FILE SETUP (unchanged from version 0.2, except cleaned slightly)
 
 
 BASE_DIR = Path(__file__).resolve().parent
 DATA_DIR = BASE_DIR / "data"
 DATA_DIR.mkdir(parents=True, exist_ok=True)
-
 WORKOUT_LOG = DATA_DIR / "workout_log.csv"
 
 
@@ -59,7 +63,6 @@ class Exercise:
     def __str__(self):
         """
         Allows printing the exercise cleanly.
-        This is part of OOP: defining how objects convert to readable text.
         """
         return f"{self.name}: {self.sets} sets x {self.reps} reps @ {self.weight} lbs"
 
@@ -95,7 +98,6 @@ class Workout:
         return self._total_volume_recursive(len(self.exercises) - 1)
 
     # SAVE THE WORKOUT 
-    # The course teaches how to group behavior with data using instance methods.
 
     def save_to_csv(self, filepath):
         """Save the workout to a CSV file using object data."""
@@ -119,7 +121,7 @@ class Workout:
 
 
 # USER INPUT
-def build_workout_from_input():
+'''def build_workout_from_input():
     """
     Builds a full Workout object by repeatedly collecting Exercise data.
     Demonstrates how instance objects are created and added to another class.
@@ -176,7 +178,55 @@ def main():
     print("\nWorkout Summary:")
     print(f"Total Volume: {workout.total_volume()} lbs")
     for ex in workout.exercises:
-        print(f"- {ex}")
+        print(f"- {ex}")'''
+# GUI frontend (work in progress)
+class workoutAppGUI:
+    '''Using tkinter to build a GUI for the fitness app'''
+
+    def __init__(self):
+        self.root = root
+        root.title("Fitness App V0.3")
+
+        #current workout model1
+        self.workout = Workout(get_today())
+
+        #build GUI
+        self._build_menu()
+        self._build_main_ui()
+        self.update_summary()
+
+
+# Menu bar
+def _build_menu(self):
+    menubar = tk.Menu(self.root)
+
+    #file menu
+    file_menu = tk.Menu(menubar, tearoff=0)
+    file_menu.add_command(label="New Workout", command=self.new_workout)
+    file_menu.add_command(label="Save Workout", command=self.save_workout)
+    file_menu.add_separator()
+    file_menu.add_command(label="Exit", command=self.root.quit)
+    menubar.add_cascade(label="File", menu=file_menu)
+
+    #help menu
+    help_menu = tk.Menu(menubar, tearoff=0)
+    help_menu.add_command(label="About", command=self.show_about)
+    menubar.add_cascade(label="Help", menu=help_menu)
+
+    self.root.config(menu=menubar)
+
+#main UI
+
+def _build_main_ui(self):
+    frame = tk.Frame(self.root, padx=10, pady=10)
+    frame.pack(fill="both", expand=True)
+
+    #labels
+    
+
+
+
+
 
 
 if __name__ == "__main__":
